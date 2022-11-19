@@ -1839,8 +1839,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7976cc5e051bc284283c218e0c1e580c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainMenu: {fileID: 1747966883}
   credits: {fileID: 429820165}
   chooseLevel: {fileID: 1314990630}
+  aS: {fileID: 973187354}
+  ac:
+  - {fileID: 8300000, guid: 2b5aab0a6d6ce264c86d64ea76b1f760, type: 3}
+  - {fileID: 8300000, guid: f94534de9a15ee040b93d584fa91d430, type: 3}
+  - {fileID: 8300000, guid: 8a0dd3fb8b966bf4a9a4f46a9d20373e, type: 3}
+  - {fileID: 8300000, guid: 128950365cf536a499e8ac16b7fac821, type: 3}
+  - {fileID: 8300000, guid: 7e44715aafd5e7f4dbd20609aa15e38a, type: 3}
   diff: 0
 --- !u!114 &973187350
 MonoBehaviour:
