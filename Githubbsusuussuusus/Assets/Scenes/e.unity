@@ -1850,6 +1850,11 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 128950365cf536a499e8ac16b7fac821, type: 3}
   - {fileID: 8300000, guid: 7e44715aafd5e7f4dbd20609aa15e38a, type: 3}
   diff: 0
+  sprites:
+  - {fileID: 21300000, guid: 15a29db30d7b8d34e92a1f7d15d90dc9, type: 3}
+  - {fileID: 21300000, guid: b19c7dddc47c3254e8a10bbefd894b0b, type: 3}
+  - {fileID: 21300000, guid: ac633722a1c9d4d48b51348790b48ecd, type: 3}
+  - {fileID: 21300000, guid: 25b74fea8c9ba30489fb7609b86ece57, type: 3}
 --- !u!114 &973187350
 MonoBehaviour:
   m_ObjectHideFlags: 0

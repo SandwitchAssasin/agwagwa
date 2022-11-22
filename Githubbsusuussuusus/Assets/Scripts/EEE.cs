@@ -11,20 +11,29 @@ public class EEE : MonoBehaviour
     public AudioSource aS;
     public AudioClip[] ac;
     public int diff;
+    GameObject enem;
+    public Sprite[] sprites;
     void Awake()
     {
         DontDestroyOnLoad(this.gameObject);
         //when getting back destroy this;
     }
+    public IEnumerator ah()
+    {
+        yield return new WaitForSeconds(0.1f);
+        enem = GameObject.Find("enmemuy");
+        Debug.Log(enem);
+        enem.GetComponent<SpriteRenderer>().sprite = sprites[diff];
+    }
     public void Statto(int diff_)
     {
         diff = diff_;
-        Debug.Log(diff);
         SceneManager.LoadScene(1);
         aS.clip = ac[diff + 1];
         aS.Play();
         mainMenu.SetActive(false);
         chooseLevel.SetActive(false);
+        StartCoroutine("ah");
         //starts gaem
     }
     public void Choose()
