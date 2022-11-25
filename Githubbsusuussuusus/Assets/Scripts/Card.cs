@@ -7,4 +7,6 @@ public class Card : ScriptableObject
 {
     public new string name;
     public int cost;
+    public Sprite gus;
+    public string des;
 }

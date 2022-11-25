@@ -10,7 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 631bca19ab6095a43a6a74a0df71ef71, type: 3}
-  m_Name: firstCardo
+  m_Name: DoubleDraw
   m_EditorClassIdentifier: 
-  name: Cash Grab
-  cost: 100
+  name: Double draw
+  cost: 75
+  gus: {fileID: 21300000, guid: b328317e59e2a034abe1e6f8b788546d, type: 3}
+  des: Draws you 2 cards - extremely useful
