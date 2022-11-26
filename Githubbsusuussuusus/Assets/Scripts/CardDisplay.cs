@@ -21,6 +21,7 @@ public class CardDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     bool isHovered;
     public TextMeshProUGUI desText;
     public GameObject buh;
+    bool isWaiting = false;
     void Awake()
     {
         m = 5;
@@ -31,6 +32,7 @@ public class CardDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     {
         if (canv.GetComponent<EEE>().money >= costt)
         {
+            canv.GetComponent<EEE>().Playo(true);
             canv.GetComponent<EEE>().money -= costt;
             if (namet == "Money shot")
             {
@@ -43,7 +45,115 @@ public class CardDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
             {
                 StartCoroutine("DobleDraw");
             }
+            if (namet == "Time set")
+            {
+                canv.GetComponent<EEE>().DrawTime *= 0.85f;
+                Destroy(gameObject);
+                canv.GetComponent<EEE>().esk.Add(cont);
+                canv.GetComponent<EEE>().cardCount -= 1;
+            }
+            if (namet == "Steal")
+            {
+                StartCoroutine("Stealo");
+            }
+            if (namet == "Investment")
+            {
+                StartCoroutine("Inv");
+            }
+            if (namet == "Hotel centre")
+            {
+                StartCoroutine("hot");
+            }
+            if (namet == "Red stop")
+            {
+                StartCoroutine("red");
+            }
+            if (namet == "A book?")
+            {
+                StartCoroutine("book");
+            }
         }
+    }
+    private IEnumerator hot()
+    {
+        canv.GetComponent<EEE>().esk.Add(cont);
+        canv.GetComponent<EEE>().cardCount -= 1;
+        isWaiting = true;
+        yield return new WaitForSeconds(0.35f);
+        canv.GetComponent<EEE>().Draw();
+        canv.GetComponent<EEE>().Draw();
+        canv.GetComponent<EEE>().Draw();
+        for (int i = 0; i < 10; i++)
+        {
+            yield return new WaitForSeconds(1f);
+            canv.GetComponent<EEE>().money += 25;
+        }
+        Destroy(gameObject);
+
+        canv.GetComponent<EEE>().Playo(false);
+    }
+    private IEnumerator book()
+    {
+        canv.GetComponent<EEE>().esk.Add(cont);
+        canv.GetComponent<EEE>().cardCount -= 1;
+        isWaiting = true;
+        yield return new WaitForSeconds(6f);
+        canv.GetComponent<EEE>().Draw();
+        if (canv.GetComponent<EEE>().money <= 200)
+        {
+            canv.GetComponent<EEE>().money += 100;
+        }
+        Destroy(gameObject);
+
+        canv.GetComponent<EEE>().Playo(false);
+    }
+    private IEnumerator Inv()
+    {
+        canv.GetComponent<EEE>().esk.Add(cont);
+        canv.GetComponent<EEE>().cardCount -= 1;
+        isWaiting = true;
+        yield return new WaitForSeconds(12f);
+        canv.GetComponent<EEE>().money += 200;
+        canv.GetComponent<EEE>().Draw();
+        canv.GetComponent<EEE>().Draw();
+        Destroy(gameObject);
+
+        canv.GetComponent<EEE>().Playo(false);
+    }
+    private IEnumerator Stealo()
+    {
+        canv.GetComponent<EEE>().esk.Add(cont);
+        canv.GetComponent<EEE>().cardCount -= 1;
+        isWaiting = true;
+        yield return new WaitForSeconds(5f);
+        canv.GetComponent<EEE>().money += 75;
+        if (canv.GetComponent<EEE>().enemyMoney >= 75)
+        {
+            canv.GetComponent<EEE>().enemyMoney -= 75;
+        }
+        else 
+        {
+            canv.GetComponent<EEE>().enemyMoney = 0;
+        }
+        Destroy(gameObject);
+
+        canv.GetComponent<EEE>().Playo(false);
+    }
+    private IEnumerator red()
+    {
+        canv.GetComponent<EEE>().esk.Add(cont);
+        canv.GetComponent<EEE>().cardCount -= 1;
+        if (canv.GetComponent<EEE>().enemyMoney >= 100)
+        {
+            canv.GetComponent<EEE>().enemyMoney -= 100;
+        }
+        else
+        {
+            canv.GetComponent<EEE>().enemyMoney = 0;
+        }
+        yield return new WaitForSeconds(0.35f);
+        canv.GetComponent<EEE>().Draw();
+        Destroy(gameObject);
     }
     private IEnumerator DobleDraw()
     {
@@ -60,17 +170,27 @@ public class CardDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         {
             Debug.Break();
         }
-        if (isHovered)
+        if (!isWaiting)
         {
-            m = 70;
-            f = 1;
-            buh.transform.localScale = new Vector3(1.55f, 1.55f, 1f);
+            if (isHovered)
+            {
+                m = 70;
+                f = 1;
+                buh.transform.localScale = new Vector3(1.55f, 1.55f, 1f);
+            }
+            else
+            {
+                m = 20;
+                f = 0;
+                buh.transform.localScale = new Vector3(0.92f, 0.92f, 1f);
+            }
         }
         else
         {
-            m = 20;
-            f = 0;
-            buh.transform.localScale = new Vector3(0.92f, 0.92f, 1f);
+            buh.transform.localScale = new Vector3(1.25f, 1.25f, 1f);
+            transform.Rotate(0f, 0f, 5f);
+            m = 150;
+            f = 1;
         }
         namet = card.name;
         costt = card.cost;

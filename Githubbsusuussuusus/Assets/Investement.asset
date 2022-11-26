@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 631bca19ab6095a43a6a74a0df71ef71, type: 3}
-  m_Name: MoneyShot
+  m_Name: Investement
   m_EditorClassIdentifier: 
-  name: Money shot
-  cost: 0
-  gus: {fileID: 21300000, guid: ca76e7c7659d9b542a921324d2567588, type: 3}
-  des: Gives you 50 money instantly
+  name: Investment
+  cost: 100
+  gus: {fileID: 21300000, guid: 321a73edd646e1e44a19fa95ade4cca8, type: 3}
+  des: After 12 seconds, gain 200 money and draw 2 cards

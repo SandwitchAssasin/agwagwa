@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 631bca19ab6095a43a6a74a0df71ef71, type: 3}
-  m_Name: MoneyShot
+  m_Name: TimeSet
   m_EditorClassIdentifier: 
-  name: Money shot
-  cost: 0
-  gus: {fileID: 21300000, guid: ca76e7c7659d9b542a921324d2567588, type: 3}
-  des: Gives you 50 money instantly
+  name: Time set
+  cost: 125
+  gus: {fileID: 21300000, guid: 29c606a3928a5b34eb2b2455ed9e1184, type: 3}
+  des: Reduces time of future draws of 15%
