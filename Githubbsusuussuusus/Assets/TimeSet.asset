@@ -15,4 +15,4 @@ MonoBehaviour:
   name: Time set
   cost: 125
   gus: {fileID: 21300000, guid: 29c606a3928a5b34eb2b2455ed9e1184, type: 3}
-  des: Reduces time of future draws of 15%
+  des: Reduces time of future draws by 10%

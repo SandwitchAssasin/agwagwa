@@ -22,11 +22,17 @@ public class CardDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     public TextMeshProUGUI desText;
     public GameObject buh;
     bool isWaiting = false;
+    public bool isEnemies = false;
+    float ghaw = 0;
     void Awake()
     {
         m = 5;
         f = 0;
         canv = GameObject.Find("Canvas");
+        if (isEnemies)
+        {
+            buh.GetComponent<Button>().interactable = false;
+        }
     }
     public void OnCliccko()
     {
@@ -47,7 +53,7 @@ public class CardDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
             }
             if (namet == "Time set")
             {
-                canv.GetComponent<EEE>().DrawTime *= 0.85f;
+                canv.GetComponent<EEE>().DrawTime *= 0.9f;
                 Destroy(gameObject);
                 canv.GetComponent<EEE>().esk.Add(cont);
                 canv.GetComponent<EEE>().cardCount -= 1;
@@ -166,31 +172,43 @@ public class CardDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     }
     void FixedUpdate()
     {
-        if (Input.GetKey(KeyCode.A))
+        if (!isEnemies)
         {
-            Debug.Break();
-        }
-        if (!isWaiting)
-        {
-            if (isHovered)
+            if (!isWaiting)
             {
-                m = 70;
-                f = 1;
-                buh.transform.localScale = new Vector3(1.55f, 1.55f, 1f);
+                if (isHovered)
+                {
+                    m = 70;
+                    f = 2;
+                    buh.transform.localScale = new Vector3(1.55f, 1.55f, 1f);
+                }
+                else
+                {
+                    m = 20;
+                    f = 0;
+                    buh.transform.localScale = new Vector3(0.92f, 0.92f, 1f);
+                }
             }
             else
             {
-                m = 20;
-                f = 0;
-                buh.transform.localScale = new Vector3(0.92f, 0.92f, 1f);
+                buh.GetComponent<Button>().interactable = false;
+                buh.transform.localScale = new Vector3(1.25f, 1.25f, 1f);
+                transform.Rotate(0f, 0f, 5f);
+                m = 150;
+                f = 1;
             }
+            buh.transform.position = new Vector3(660 - cont * 96, m, 0);
         }
         else
         {
-            buh.transform.localScale = new Vector3(1.25f, 1.25f, 1f);
-            transform.Rotate(0f, 0f, 5f);
-            m = 150;
-            f = 1;
+            f = 3;
+            buh.transform.localScale = new Vector3(1.75f, 1.75f, 1f);
+            ghaw += Time.deltaTime;
+            buh.transform.position = new Vector3(660 - (ghaw * 207f), 170, 0);
+            if (ghaw >= 3)
+            {
+                Destroy(gameObject);
+            }
         }
         namet = card.name;
         costt = card.cost;
@@ -198,7 +216,6 @@ public class CardDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         desText.text = card.des;
         costText.text = costt.ToString();
         sus.GetComponent<Image>().sprite = card.gus; //czemu do cholery to sie nazywa sprite jak jest w edytorze napisane source image wtf
-        buh.transform.position = new Vector3(660 - cont * 96, m, 0);
         GetComponent<Canvas>().sortingOrder = f;
         GetComponent<Canvas>().overrideSorting = true;
     }

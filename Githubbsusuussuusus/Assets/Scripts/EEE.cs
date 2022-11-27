@@ -19,15 +19,22 @@ public class EEE : MonoBehaviour
     GameObject enem;
     public Sprite[] sprites;
     public GameObject card;
-    public Card[] cardos;
+    public List<Card> cardos;
+    public List<Card> enemyDeck;
+    public List<Card> enemyHand;
+    public List<Card> enemyHandheCanUSE;
     public int cardCount;
     public float money;
     public float enemyMoney;
     public TextMeshProUGUI moneyText;
     public TextMeshProUGUI EmoneyText;
     public TextMeshProUGUI drawTimeText;
+    public TextMeshProUGUI EdrawTimeText;
+    public TextMeshProUGUI EhandCountText;
     public List<int> esk;
     float aaah = 0;
+    float Eaaah = 0;
+    float Timef = 0;
     public Color colour;
     public Color UNcolour;
     public Color UNNNNcolour;
@@ -42,6 +49,7 @@ public class EEE : MonoBehaviour
     public AudioClip[] aC;
     public AudioSource sus;
     public float DrawTime;
+    public float EDrawTime;
     bool bv = false;
     void Awake()
     {
@@ -59,6 +67,7 @@ public class EEE : MonoBehaviour
         for (int i = 0; i < 3; i++)
         {
             Draw();
+            EDraw();
         }
     }
     public void BackFromMusic()
@@ -112,13 +121,20 @@ public class EEE : MonoBehaviour
             aSFX.Play();
         }
     }
+    public void EDraw()
+    {
+        if (enemyHand.Count <= 5)
+        {
+            enemyHand.Add(enemyDeck[Random.Range(0, enemyDeck.Count)]);
+        }
+    }
     public void Draw()
     {
         if (cardCount <= 5)
         {
             cardCount += 1;
             GameObject gus = Instantiate(card, transform.position, Quaternion.identity);
-            gus.GetComponent<CardDisplay>().card = cardos[Random.Range(0, cardos.Length)];
+            gus.GetComponent<CardDisplay>().card = cardos[Random.Range(0, cardos.Count)];
             if (esk.Count == 0)
             {
                 gus.GetComponent<CardDisplay>().cont = cardCount;
@@ -156,23 +172,106 @@ public class EEE : MonoBehaviour
         moneyText.gameObject.SetActive(true);
         EmoneyText.gameObject.SetActive(true);
         drawTimeText.gameObject.SetActive(true);
+        EdrawTimeText.gameObject.SetActive(true);
+        EhandCountText.gameObject.SetActive(true);
         bv = true;
+    }
+    void enemyUses(Card usedCard)
+    {
+        if (usedCard.name == "Money shot")
+        {
+            enemyMoney += 50;
+        }
+        if (usedCard.name == "Double draw")
+        {
+            EDraw();
+            EDraw();
+        }
+        if (usedCard.name == "Time set")
+        {
+
+        }
+        if (usedCard.name == "Steal")
+        {
+
+        }
+        if (usedCard.name == "Investment")
+        {
+
+        }
+        if (usedCard.name == "Hotel centre")
+        {
+
+        }
+        if (usedCard.name == "Red stop")
+        {
+
+        }
+        if (usedCard.name == "A book?")
+        {
+
+        }
+    }
+    private IEnumerator agh()
+    {
+        foreach (Card item in enemyHand)
+        {
+            if (enemyMoney >= item.cost)
+            {
+                enemyHandheCanUSE.Add(item);
+            }
+        }
+        while (enemyHandheCanUSE.Count != 0)
+        {
+            Card inUse = enemyHandheCanUSE[Random.Range(0, enemyHandheCanUSE.Count - 1)];
+            enemyHand.Remove(inUse);
+            GameObject bob = Instantiate(card, transform.position, Quaternion.identity);
+            enemyUses(inUse);
+            bob.GetComponent<CardDisplay>().card = inUse;
+            bob.GetComponent<CardDisplay>().isEnemies = true;
+            enemyMoney -= inUse.cost;
+            enemyHandheCanUSE.Clear();
+            foreach (Card item in enemyHand)
+            {
+                if (enemyMoney >= item.cost)
+                {
+                    enemyHandheCanUSE.Add(item);
+                }
+            }
+            yield return new WaitForSeconds(1.5f);
+        }
+        yield return new WaitForSeconds(0.5f);
     }
     void Update()
     {
+        if (3 - Timef <= 0)
+        {
+            StartCoroutine("agh");
+            Timef = 0;
+        }
         moneyText.text = "Money: " + money.ToString();
         EmoneyText.text = "Enemy's money: " + enemyMoney.ToString();
+        EhandCountText.text = "Hand size: " + enemyHand.Count.ToString();
         if (bv)
         {
             aaah += Time.deltaTime;
+            Eaaah += Time.deltaTime;
+            Timef += Time.deltaTime;
         }
         drawTimeText.text = "Draw time: " + (Mathf.Round(DrawTime - aaah)).ToString();
+        EdrawTimeText.text = "Draw time: " + (Mathf.Round(EDrawTime - Eaaah)).ToString();
         if (aaah >= DrawTime && bv)
             {
                 aaah = 0;
             Draw();
             money += 75;
             }
+        if (Eaaah >= EDrawTime && bv)
+        {
+            Eaaah = 0;
+            EDraw();
+            enemyMoney += 75;
+        }
         if (ak)
         {
             HinaMOMENTO.text = info[heh];
