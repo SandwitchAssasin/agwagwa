@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine.UI;
 
 public class EEE : MonoBehaviour
 {
@@ -32,8 +33,8 @@ public class EEE : MonoBehaviour
     public TextMeshProUGUI EdrawTimeText;
     public TextMeshProUGUI EhandCountText;
     public List<int> esk;
-    float aaah = 0;
-    float Eaaah = 0;
+    public float aaah = 0;
+     public float Eaaah = 0;
     float Timef = 0;
     public Color colour;
     public Color UNcolour;
@@ -51,18 +52,73 @@ public class EEE : MonoBehaviour
     public float DrawTime;
     public float EDrawTime;
     bool bv = false;
+    public int moneyLimit;
+    public GameObject winPanel;
+    public GameObject losePanel;
+    bool bgn = false;
+    public List<Card> playerDecks1;
+    public List<Card> playerDecks2;
+    public List<Card> playerDecks3;
+    public List<Card> playerDecks4;
+    public List<Card> enemyDecks1;
+    public List<Card> enemyDecks2;
+    public List<Card> enemyDecks3;
+    public List<Card> enemyDecks4;
+    public Slider audioSlider;
     void Awake()
     {
         money = 100;
         enemyMoney = 100;
-        DontDestroyOnLoad(this.gameObject);
         //when getting back destroy this;
+        Debug.Log(GameObject.FindGameObjectsWithTag("Cansus"));
+        foreach (GameObject cux in GameObject.FindGameObjectsWithTag("Cansus"))
+        {
+            if (cux != this.gameObject && !bgn)
+            {
+                cux.GetComponent<EEE>().gwagwa();
+            }
+        }
+        DontDestroyOnLoad(this.gameObject);
+        bgn = true;
+    }
+    public void gwagwa()
+    {
+        money = 100;
+        enemyMoney = 100;
+        StartCoroutine("ghgh");
+        Debug.Log("anxietyyy");
+        losePanel.SetActive(false);
+        winPanel.SetActive(false);
+        mainMenu.SetActive(true);
+        sus.clip = aC[0];
+        sus.Play();
+        moneyText.gameObject.SetActive(false);
+        EmoneyText.gameObject.SetActive(false);
+        drawTimeText.gameObject.SetActive(false);
+        EdrawTimeText.gameObject.SetActive(false);
+        EhandCountText.gameObject.SetActive(false);
+        bv = false;
+        enemyHand.Clear();
+        enemyHandheCanUSE.Clear();
+    }
+    public IEnumerator ghgh()
+    {
+        Debug.Log("aaa");
+        for (int i = 0; i < 600; i++)
+        {
+            Debug.Log(80 * 564 ^ 3);
+        }
+        StartCoroutine("del");
+        yield return new WaitForSeconds(1f);
     }
     public IEnumerator ah()
     {
+        Time.timeScale = 1;
+        Debug.Log("aaadsdsd");
         yield return new WaitForSeconds(0.1f);
         enem = GameObject.Find("enmemuy");
         Debug.Log(enem);
+        Debug.Log("aaadsdsd");
         enem.GetComponent<SpriteRenderer>().sprite = sprites[diff];
         for (int i = 0; i < 3; i++)
         {
@@ -167,14 +223,35 @@ public class EEE : MonoBehaviour
         aS.Play();
         mainMenu.SetActive(false);
         chooseLevel.SetActive(false);
+        cardCount = 0;
+        bv = true;
         StartCoroutine("ah");
+        if (diff == 0)
+        {
+            cardos = playerDecks1;
+            enemyDeck = enemyDecks1;
+        }
+        if (diff == 1)
+        {
+            cardos = playerDecks2;
+            enemyDeck = enemyDecks2;
+        }
+        if (diff == 2)
+        {
+            cardos = playerDecks3;
+            enemyDeck = enemyDecks3;
+        }
+        if (diff == 3)
+        {
+            cardos = playerDecks4;
+            enemyDeck = enemyDecks4;
+        }
         //starts gaem
         moneyText.gameObject.SetActive(true);
         EmoneyText.gameObject.SetActive(true);
         drawTimeText.gameObject.SetActive(true);
         EdrawTimeText.gameObject.SetActive(true);
         EhandCountText.gameObject.SetActive(true);
-        bv = true;
     }
     void enemyUses(Card usedCard)
     {
@@ -189,27 +266,86 @@ public class EEE : MonoBehaviour
         }
         if (usedCard.name == "Time set")
         {
-
+            EDrawTime *= 0.9f;
         }
         if (usedCard.name == "Steal")
         {
-
+            StartCoroutine("Stealo");
         }
         if (usedCard.name == "Investment")
         {
+            StartCoroutine("Inv");
 
         }
         if (usedCard.name == "Hotel centre")
         {
+            EDraw();
+            EDraw();
+            EDraw();
 
+            StartCoroutine("hot");
         }
         if (usedCard.name == "Red stop")
         {
-
+            EDraw();
+            if (money >= 100)
+            {
+                money -= 100;
+            }
+            else
+            {
+                money = 0;
+            }
         }
         if (usedCard.name == "A book?")
         {
+            StartCoroutine("Bok");
+        }
+        if (usedCard.name == "Weird hat")
+        {
+            enemyMoney += 150;
+        }
+        if (usedCard.name == "FREEEZE!!!")
+        {
+            aaah -= 10;
+        }
+    }
+    private IEnumerator Bok()
+    {
+        yield return new WaitForSeconds(6f);
+        EDraw();
+        if (enemyMoney <= 200)
+        {
+            enemyMoney += 100;
+        }
+    }
+    private IEnumerator Inv()
+    {
+        yield return new WaitForSeconds(12f);
+        enemyMoney += 200;
+        EDraw();
+        EDraw();
 
+    }
+    private IEnumerator hot()
+    {
+        for (int i = 0; i < 10; i++)
+        {
+            yield return new WaitForSeconds(1f);
+            enemyMoney += 25;
+        }
+    }
+    private IEnumerator Stealo()
+    {
+        yield return new WaitForSeconds(5f);
+        enemyMoney += 75;
+        if (money >= 75)
+        {
+            money -= 75;
+        }
+        else
+        {
+            money = 0;
         }
     }
     private IEnumerator agh()
@@ -223,27 +359,75 @@ public class EEE : MonoBehaviour
         }
         while (enemyHandheCanUSE.Count != 0)
         {
-            Card inUse = enemyHandheCanUSE[Random.Range(0, enemyHandheCanUSE.Count - 1)];
-            enemyHand.Remove(inUse);
-            GameObject bob = Instantiate(card, transform.position, Quaternion.identity);
-            enemyUses(inUse);
-            bob.GetComponent<CardDisplay>().card = inUse;
-            bob.GetComponent<CardDisplay>().isEnemies = true;
-            enemyMoney -= inUse.cost;
-            enemyHandheCanUSE.Clear();
-            foreach (Card item in enemyHand)
+            if (Random.Range(0, 1) == 0)
             {
-                if (enemyMoney >= item.cost)
+                Card inUse = enemyHandheCanUSE[Random.Range(0, enemyHandheCanUSE.Count - 1)];
+                enemyHand.Remove(inUse);
+                GameObject bob = Instantiate(card, transform.position, Quaternion.identity);
+                enemyUses(inUse);
+                bob.GetComponent<CardDisplay>().card = inUse;
+                bob.GetComponent<CardDisplay>().isEnemies = true;
+                enemyMoney -= inUse.cost;
+                enemyHandheCanUSE.Clear();
+                foreach (Card item in enemyHand)
                 {
-                    enemyHandheCanUSE.Add(item);
+                    if (enemyMoney >= item.cost)
+                    {
+                        enemyHandheCanUSE.Add(item);
+                    }
                 }
+                yield return new WaitForSeconds(2.5f);
             }
-            yield return new WaitForSeconds(1.5f);
         }
         yield return new WaitForSeconds(0.5f);
     }
+    void Lose()
+    {
+        Time.timeScale = 0;
+        losePanel.SetActive(true);
+    }
+    void GetNext()
+    {
+        Time.timeScale = 0;
+        winPanel.SetActive(true);
+    }
+    public void GetBackToMenu()
+    {
+        foreach (GameObject cux in GameObject.FindGameObjectsWithTag("Card"))
+        {
+            Destroy(cux);
+        }
+        SceneManager.LoadScene(0);
+        Time.timeScale = 1;
+    }
+    private IEnumerator del()
+    {
+        Debug.Log(GameObject.FindGameObjectsWithTag("Cansus"));
+        for (int i = 0; i < 5; i++)
+        {
+            Debug.Log(GameObject.FindGameObjectsWithTag("Cansus"));
+            foreach (GameObject cux in GameObject.FindGameObjectsWithTag("Cansus"))
+            {
+                if (cux != this.gameObject)
+                {
+                    Destroy(cux);
+                }
+            }
+        }
+        yield return new WaitForSeconds(0.67f);
+    }
     void Update()
     {
+        aS.volume = audioSlider.value;
+        aSFX.volume = audioSlider.value;
+        if (money >= moneyLimit)
+        {
+            GetNext();
+        }
+        else if (enemyMoney >= moneyLimit)
+        {
+            Lose();
+        }
         if (3 - Timef <= 0)
         {
             StartCoroutine("agh");

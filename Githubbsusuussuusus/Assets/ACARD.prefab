@@ -449,7 +449,7 @@ GameObject:
   - component: {fileID: 8255306627087064334}
   m_Layer: 5
   m_Name: ACARD
-  m_TagString: Untagged
+  m_TagString: Card
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -506,6 +506,7 @@ MonoBehaviour:
   f: 0
   desText: {fileID: 5205125510837624457}
   buh: {fileID: 269802517723087581}
+  isEnemies: 0
 --- !u!223 &4171010191455903943
 Canvas:
   m_ObjectHideFlags: 0

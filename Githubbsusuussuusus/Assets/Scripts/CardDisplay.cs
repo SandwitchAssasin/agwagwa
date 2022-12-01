@@ -78,6 +78,13 @@ public class CardDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
             {
                 StartCoroutine("book");
             }
+            if (namet == "FREEEZE!!!")
+            {
+                canv.GetComponent<EEE>().Eaaah -= 10;
+                Destroy(gameObject);
+                canv.GetComponent<EEE>().esk.Add(cont);
+                canv.GetComponent<EEE>().cardCount -= 1;
+            }
         }
     }
     private IEnumerator hot()
@@ -178,33 +185,34 @@ public class CardDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
             {
                 if (isHovered)
                 {
-                    m = 70;
+                    m = 140;
                     f = 2;
-                    buh.transform.localScale = new Vector3(1.55f, 1.55f, 1f);
+                    buh.transform.localScale = new Vector3(3.15f, 3.15f, 1f);
                 }
                 else
                 {
-                    m = 20;
+                    m = 40;
                     f = 0;
-                    buh.transform.localScale = new Vector3(0.92f, 0.92f, 1f);
+                    buh.transform.localScale = new Vector3(1.82f, 1.82f, 1f);
                 }
             }
             else
             {
                 buh.GetComponent<Button>().interactable = false;
-                buh.transform.localScale = new Vector3(1.25f, 1.25f, 1f);
+                buh.transform.localScale = new Vector3(2.5f, 2.5f, 1f);
                 transform.Rotate(0f, 0f, 5f);
-                m = 150;
+                m = 300;
                 f = 1;
             }
-            buh.transform.position = new Vector3(660 - cont * 96, m, 0);
+            buh.transform.position = new Vector3(1320 - cont * 192, m, 0);
         }
         else
         {
             f = 3;
-            buh.transform.localScale = new Vector3(1.75f, 1.75f, 1f);
+            buh.GetComponent<Button>().interactable = false;
+            buh.transform.localScale = new Vector3(3.5f, 3.5f, 1f);
             ghaw += Time.deltaTime;
-            buh.transform.position = new Vector3(660 - (ghaw * 207f), 170, 0);
+            buh.transform.position = new Vector3(1320 - (ghaw * 414f), 340, 0);
             if (ghaw >= 3)
             {
                 Destroy(gameObject);

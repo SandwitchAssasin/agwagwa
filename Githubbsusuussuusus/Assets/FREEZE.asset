@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 631bca19ab6095a43a6a74a0df71ef71, type: 3}
+  m_Name: FREEZE
+  m_EditorClassIdentifier: 
+  name: FREEEZE!!!
+  cost: 50
+  gus: {fileID: 21300000, guid: 02abf156ecacf1840ab37449466f571c, type: 3}
+  des: Delays opponent's next draw by 10 seconds, frozen frogs are the best frogs!
